@@ -22,5 +22,6 @@ VITE_API_URL = "/api"
 binding = "OPENLISTNEXT_KV"
 
 
-
+# wrangler.toml
+name = 'openlistnext'
 
