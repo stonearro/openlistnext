@@ -1,3 +1,4 @@
+# wrangler.toml
 name = 'openlistnext'
 main = "src/backend/worker.ts"
 compatibility_date = "2026-08-04"
@@ -9,16 +10,16 @@ preview_urls = false
 directory = "./dist"
 binding = "ASSETS"
 
-
 [vars]
 ENVIRONMENT = "production"
-# 注意：不要在这里硬编码管理员密码！部署时请通过
-#   `wrangler secret put ADMIN_PASSWORD`  配置强密码，
-#   未配置时使用默认 admin/admin，首次登录后请立即修改。
-# JWT 签名密钥同理：`wrangler secret put JWT_SECRET`
 VITE_API_URL = "/api"
+# 本实例的管理员是 KV 中的用户 "cage"（role=2），并非 "admin"。
+# ADMIN_USERNAME 代码从不读取；ADMIN_PASSWORD 只作用于字面名为 "admin"
+# 的用户，因此两者对本实例均无效，已移除（也避免明文口令进 public 仓库）。
+# 改密码请在后台「用户」页面对 "cage" 操作，新哈希写回 KV。
+# 注意：[[kv_namespaces]] 的 id 必须保留，缺失会导致仪表盘 Git 部署
+# 触发「请更新您的存储库中的 wrangler.toml，以保持一致的设置」一致性校验失败。
 
 [[kv_namespaces]]
 binding = "OPENLISTNEXT_KV"
 id = "0225009baba041a684c700d3127091f5"
-
